@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Feliz cumple 💌</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    min-height:100vh;
+    overflow-x:hidden;
+    font-family:Georgia, "Times New Roman", serif;
+    background:#e7c49c;
+    color:#633636;
+}
+
+
+/* =========================================================
+   FONDO
+========================================================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(255,255,255,.35),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(255,255,255,.2),
+            transparent 25%
+        );
+
+    z-index:0;
+}
+
+
+/* =========================================================
+   CONTENEDOR
+========================================================= */
+
+.wrapper{
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:35px 20px;
+
+    position:relative;
+    z-index:1;
+}
+
+
+/* =========================================================
+   ESCENA COMPLETA
+========================================================= */
+
+.scene{
+    width:min(94vw,1000px);
+    height:min(82vh,650px);
+
+    position:relative;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    perspective:2200px;
+}
+
+
+/* =========================================================
+   TARJETA CERRADA
+========================================================= */
+
+.closed-card{
+    position:absolute;
+
+    width:min(55vw,410px);
+    height:min(76vh,610px);
+
+    max-height:610px;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        rotateY(0deg);
+
+    transform-origin:left center;
+
+    z-index:20;
+
+    cursor:pointer;
+
+    transition:
+        transform 1.35s cubic-bezier(.2,.75,.15,1),
+        opacity .8s ease,
+        left 1.35s cubic-bezier(.2,.75,.15,1);
+}
+
+
+/* IMAGEN 1 */
+
+.closed-card img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    display:block;
+
+    user-select:none;
+    -webkit-user-drag:none;
+
+    filter:
+        drop-shadow(
+            0 25px 28px rgba(75,38,25,.27)
+        );
+}
+
+
+/* texto de abrir */
+
+.open-hint{
+    position:absolute;
+
+    bottom:-45px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    white-space:nowrap;
+
+    background:#fff5e7;
+
+    padding:9px 17px;
+
+    border-radius:30px;
+
+    font-size:11px;
+
+    letter-spacing:1.4px;
+
+    color:#713b3b;
+
+    box-shadow:
+        0 7px 16px rgba(70,35,25,.15);
+
+    transition:.4s ease;
+}
+
+
+/* cuando se abre */
+
+.scene.open .closed-card{
+    left:50%;
+
+    transform:
+        translate(-50%,-50%)
+        rotateY(-165deg);
+
+    opacity:0;
+
+    pointer-events:none;
+}
+
+.scene.open .open-hint{
+    opacity:0;
+}
+
+
+/* =========================================================
+   TARJETA ABIERTA
+========================================================= */
+
+.open-card{
+    position:absolute;
+
+    width:min(92vw,920px);
+    height:min(65vh,540px);
+
+    min-height:430px;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        scale(.65);
+
+    opacity:0;
+
+    display:flex;
+
+    background:#e9c99f;
+
+    border-radius:3px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 30px 55px rgba(65,30,20,.30),
+        0 5px 10px rgba(65,30,20,.12);
+
+    transition:
+        opacity .65s ease .35s,
+        transform 1.1s cubic-bezier(.2,.75,.15,1);
+
+    pointer-events:none;
+
+    z-index:10;
+}
+
+
+/* tarjeta abierta visible */
+
+.scene.open .open-card{
+    opacity:1;
+
+    transform:
+        translate(-50%,-50%)
+        scale(1);
+
+    pointer-events:auto;
+}
+
+
+/* =========================================================
+   PÁGINAS
+========================================================= */
+
+.page{
+    position:relative;
+
+    width:50%;
+    height:100%;
+
+    overflow:hidden;
+
+    background:#e7c59c;
+}
+
+
+/* línea del centro */
+
+.page.left{
+    border-right:1px solid rgba(100,55,40,.16);
+
+    box-shadow:
+        inset -8px 0 15px rgba(80,40,25,.05);
+}
+
+.page.right{
+    box-shadow:
+        inset 8px 0 15px rgba(80,40,25,.04);
+}
+
+
+/* borde interior */
+
+.page::before{
+    content:"";
+
+    position:absolute;
+
+    inset:14px;
+
+    border:1px solid rgba(100,55,40,.13);
+
+    pointer-events:none;
+
+    z-index:2;
+}
+
+
+/* =========================================================
+   DECORACIONES
+========================================================= */
+
+.decor{
+    position:absolute;
+
+    z-index:5;
+
+    color:#9b4242;
+
+    pointer-events:none;
+}
+
+.decor.one{
+    top:22px;
+    left:28px;
+
+    font-size:26px;
+
+    transform:rotate(-12deg);
+}
+
+.decor.two{
+    top:27px;
+    right:28px;
+
+    font-size:22px;
+
+    transform:rotate(10deg);
+}
+
+.decor.three{
+    bottom:25px;
+    left:28px;
+
+    font-size:25px;
+
+    transform:rotate(-8deg);
+}
+
+
+/* =========================================================
+   SOBRE / IMAGEN 2
+========================================================= */
+
+.envelope-container{
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:10;
+
+    padding:35px;
+}
+
+
+/* IMPORTANTE:
+   TODO el contenedor es clickeable,
+   no solamente una parte de la imagen.
+*/
+
+.envelope-button{
+    width:100%;
+    height:100%;
+
+    border:0;
+    background:transparent;
+
+    padding:0;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+
+    position:relative;
+
+    z-index:20;
+}
+
+
+/* imagen 2 */
+
+.envelope-button img{
+    width:88%;
+    height:88%;
+
+    object-fit:contain;
+
+    display:block;
+
+    pointer-events:none;
+
+    user-select:none;
+    -webkit-user-drag:none;
+
+    filter:
+        drop-shadow(
+            0 15px 14px rgba(70,35,25,.20)
+        );
+
+    transition:
+        transform .45s ease,
+        filter .45s ease;
+}
+
+
+/* hover */
+
+.envelope-button:hover img{
+    transform:
+        translateY(-7px)
+        rotate(-1deg);
+
+    filter:
+        drop-shadow(
+            0 22px 20px rgba(70,35,25,.26)
+        );
+}
+
+
+/* texto */
+
+.envelope-label{
+    position:absolute;
+
+    bottom:38px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:30;
+
+    background:#fff5e7;
+
+    padding:9px 16px;
+
+    border-radius:20px;
+
+    white-space:nowrap;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+
+    color:#713b3b;
+
+    box-shadow:
+        0 5px 12px rgba(70,35,25,.15);
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   CARTA ABIERTA / IMAGEN 3
+========================================================= */
+
+.letter-container{
+    position:absolute;
+
+    inset:0;
+
+    z-index:50;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    padding:18px;
+
+    opacity:0;
+
+    transform:
+        translateX(40px)
+        scale(.88)
+        rotate(-1deg);
+
+    pointer-events:none;
+
+    transition:
+        opacity .55s ease,
+        transform .7s cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* cuando se abre */
+
+.page.left.letter-open .letter-container{
+    opacity:1;
+
+    transform:
+        translateX(0)
+        scale(1)
+        rotate(0);
+
+    pointer-events:auto;
+}
+
+
+/* imagen 3 */
+
+.letter-container img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    display:block;
+
+    user-select:none;
+    -webkit-user-drag:none;
+
+    filter:
+        drop-shadow(
+            0 13px 16px rgba(70,35,25,.23)
+        );
+}
+
+
+/* esconder sobre */
+
+.page.left.letter-open .envelope-container{
+    opacity:0;
+
+    transform:
+        scale(.8)
+        translateX(-35px);
+
+    pointer-events:none;
+
+    transition:
+        opacity .35s ease,
+        transform .5s ease;
+}
+
+
+/* =========================================================
+   BOTÓN PARA CERRAR LA CARTA
+========================================================= */
+
+.close-letter{
+    position:absolute;
+
+    bottom:15px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    border:0;
+
+    background:#fff5e7;
+
+    color:#713b3b;
+
+    padding:8px 15px;
+
+    border-radius:20px;
+
+    font-family:Georgia,serif;
+
+    font-size:10px;
+
+    letter-spacing:.7px;
+
+    cursor:pointer;
+
+    z-index:100;
+
+    box-shadow:
+        0 5px 13px rgba(70,35,25,.18);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.25s ease;
+}
+
+
+/* visible cuando carta abierta */
+
+.page.left.letter-open .close-letter{
+    opacity:1;
+
+    pointer-events:auto;
+}
+
+
+/* =========================================================
+   CAKE / IMAGEN 4
+========================================================= */
+
+.cake-container{
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    padding:30px;
+
+    z-index:10;
+}
+
+
+/* imagen */
+
+.cake-image{
+    width:91%;
+    height:91%;
+
+    object-fit:contain;
+
+    display:block;
+
+    user-select:none;
+    -webkit-user-drag:none;
+
+    filter:
+        drop-shadow(
+            0 16px 15px rgba(70,35,25,.20)
+        );
+}
+
+
+/* =========================================================
+   LLAMAS
+========================================================= */
+
+.flame{
+    position:absolute;
+
+    width:27px;
+    height:40px;
+
+    z-index:40;
+
+    background:
+        radial-gradient(
+            ellipse at center bottom,
+            #fff6a6 0%,
+            #ffbd35 37%,
+            #ec6335 65%,
+            transparent 70%
+        );
+
+    clip-path:polygon(
+        50% 100%,
+        17% 70%,
+        22% 42%,
+        44% 0%,
+        62% 34%,
+        78% 18%,
+        82% 61%,
+        67% 82%
+    );
+
+    transform-origin:center bottom;
+
+    animation:
+        flameMove .12s infinite alternate;
+
+    cursor:pointer;
+}
+
+@keyframes flameMove{
+
+    0%{
+        transform:
+            scale(1)
+            rotate(-2deg);
+    }
+
+    100%{
+        transform:
+            scale(1.08,.95)
+            rotate(3deg);
+    }
+}
+
+
+/*
+   POSICIONES DE LAS TRES VELAS
+*/
+
+.flame.one{
+    left:24.2%;
+    top:31.5%;
+}
+
+.flame.two{
+    left:47%;
+    top:30.7%;
+}
+
+.flame.three{
+    left:69.7%;
+    top:31.7%;
+}
+
+
+/* =========================================================
+   HUMO
+========================================================= */
+
+.smoke{
+    position:absolute;
+
+    width:15px;
+    height:15px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.7);
+
+    filter:blur(2px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:45;
+}
+
+.smoke.one{
+    left:25%;
+    top:29%;
+}
+
+.smoke.two{
+    left:47.8%;
+    top:28%;
+}
+
+.smoke.three{
+    left:70.3%;
+    top:29%;
+}
+
+
+/* cuando se apagan */
+
+.scene.candles-off .flame{
+    opacity:0;
+
+    animation:none;
+
+    transform:
+        scale(.1)
+        translateY(20px);
+
+    transition:.35s ease;
+}
+
+.scene.candles-off .smoke{
+    animation:smokeUp 2s ease-out forwards;
+}
+
+@keyframes smokeUp{
+
+    0%{
+        opacity:0;
+        transform:
+            translateY(5px)
+            scale(.3);
+    }
+
+    25%{
+        opacity:.75;
+    }
+
+    100%{
+        opacity:0;
+
+        transform:
+            translateY(-65px)
+            translateX(15px)
+            scale(2.7);
+    }
+}
+
+
+/* =========================================================
+   BOTÓN SOPLAR
+========================================================= */
+
+.candle-controls{
+    position:absolute;
+
+    bottom:18px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:80;
+
+    display:flex;
+
+    gap:7px;
+}
+
+
+.blow-button,
+.relight-button{
+    border:0;
+
+    background:#fff5e7;
+
+    color:#713b3b;
+
+    padding:9px 16px;
+
+    border-radius:22px;
+
+    font-family:Georgia,serif;
+
+    font-size:10px;
+
+    letter-spacing:.5px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 13px rgba(70,35,25,.17);
+
+    transition:.25s ease;
+}
+
+
+.blow-button:hover,
+.relight-button:hover{
+    transform:translateY(-2px);
+}
+
+
+.relight-button{
+    display:none;
+}
+
+
+.scene.candles-off .relight-button{
+    display:block;
+}
+
+
+/* =========================================================
+   MENSAJE FELIZ CUMPLE
+========================================================= */
+
+.final-message{
+    position:absolute;
+
+    top:18px;
+    left:50%;
+
+    transform:
+        translateX(-50%)
+        translateY(-15px)
+        scale(.8);
+
+    opacity:0;
+
+    z-index:100;
+
+    background:#fff5e7;
+
+    color:#713b3b;
+
+    padding:9px 17px;
+
+    border-radius:25px;
+
+    font-size:11px;
+
+    letter-spacing:.7px;
+
+    white-space:nowrap;
+
+    box-shadow:
+        0 6px 15px rgba(70,35,25,.15);
+
+    transition:.6s ease;
+}
+
+
+.scene.candles-off .final-message{
+    opacity:1;
+
+    transform:
+        translateX(-50%)
+        translateY(0)
+        scale(1);
+}
+
+
+/* =========================================================
+   CERRAR TARJETA
+========================================================= */
+
+.close-card{
+    position:absolute;
+
+    bottom:-43px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    border:0;
+
+    background:#fff5e7;
+
+    color:#713b3b;
+
+    padding:8px 17px;
+
+    border-radius:20px;
+
+    font-family:Georgia,serif;
+
+    font-size:10px;
+
+    letter-spacing:.7px;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:200;
+
+    box-shadow:
+        0 5px 13px rgba(70,35,25,.16);
+
+    transition:.3s ease;
+}
+
+
+.scene.open .close-card{
+    opacity:1;
+
+    pointer-events:auto;
+}
+
+
+/* =========================================================
+   CONFETI
+========================================================= */
+
+.confetti{
+    position:fixed;
+
+    top:-20px;
+
+    width:7px;
+    height:12px;
+
+    z-index:999;
+
+    pointer-events:none;
+
+    animation:
+        fall 2.8s ease-out forwards;
+}
+
+@keyframes fall{
+
+    0%{
+        transform:
+            translateY(0)
+            rotate(0);
+
+        opacity:1;
+    }
+
+    100%{
+        transform:
+            translateY(105vh)
+            translateX(var(--move))
+            rotate(720deg);
+
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media(max-width:700px){
+
+    .wrapper{
+        padding:25px 12px 65px;
+    }
+
+    .scene{
+        height:850px;
+        width:100%;
+    }
+
+    .closed-card{
+        width:min(78vw,370px);
+        height:min(70vh,555px);
+    }
+
+    .open-card{
+        width:94vw;
+        height:auto;
+
+        min-height:760px;
+
+        flex-direction:column;
+
+        overflow:hidden;
+    }
+
+    .page{
+        width:100%;
+        height:380px;
+    }
+
+    .page.left{
+        border-right:0;
+
+        border-bottom:
+            1px solid rgba(100,55,40,.16);
+    }
+
+    .page.right{
+        height:390px;
+    }
+
+    .scene.open .open-card{
+        transform:
+            translate(-50%,-50%)
+            scale(.96);
+    }
+
+    .envelope-button img{
+        width:82%;
+        height:82%;
+    }
+
+    .letter-container{
+        padding:12px;
+    }
+
+    .cake-image{
+        width:87%;
+        height:87%;
+    }
+
+    .close-card{
+        bottom:-34px;
+    }
+
+}
+
+
+/* =========================================================
+   MÓVILES PEQUEÑOS
+========================================================= */
+
+@media(max-width:430px){
+
+    .scene{
+        height:820px;
+    }
+
+    .open-card{
+        min-height:730px;
+    }
+
+    .page{
+        height:355px;
+    }
+
+    .page.right{
+        height:375px;
+    }
+
+    .envelope-label{
+        bottom:25px;
+        font-size:9px;
+    }
+
+    .candle-controls{
+        bottom:13px;
+    }
+
+    .blow-button,
+    .relight-button{
+        padding:8px 12px;
+        font-size:9px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="wrapper">
+
+<div class="scene" id="scene">
+
+
+    <!-- =====================================================
+         TARJETA CERRADA
+         IMAGEN 1
+    ====================================================== -->
+
+    <div class="closed-card" id="closedCard">
+
+        <img
+            src="1.jpg"
+            alt="Feliz cumpleaños"
+        >
+
+        <div class="open-hint">
+            CLICK PARA ABRIR 💌
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         TARJETA ABIERTA
+    ====================================================== -->
+
+    <div class="open-card" id="openCard">
+
+
+        <!-- =================================================
+             PÁGINA IZQUIERDA
+        ================================================== -->
+
+        <div class="page left" id="leftPage">
+
+
+            <div class="decor one">
+                ★
+            </div>
+
+            <div class="decor two">
+                ✦
+            </div>
+
+            <div class="decor three">
+                ♡
+            </div>
+
+
+
+            <!-- =============================================
+                 SOBRE / IMAGEN 2
+
+                 TODO ESTE BOTÓN ES CLICKEABLE.
+                 NO HAY NADA ENCIMA QUE IMPIDA EL CLICK.
+            ============================================== -->
+
+            <div
+                class="envelope-container"
+                id="envelopeContainer"
+            >
+
+                <button
+                    class="envelope-button"
+                    id="envelopeButton"
+                    type="button"
+                    aria-label="Abrir carta"
+                >
+
+                    <img
+                        src="2.jpg"
+                        alt="Abrir carta"
+                    >
+
+                    <div class="envelope-label">
+                        CLICK A LA CARTA UWU 💌
+                    </div>
+
+                </button>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 CARTA / IMAGEN 3
+            ============================================== -->
+
+            <div
+                class="letter-container"
+                id="letterContainer"
+            >
+
+                <img
+                    src="3.jpg"
+                    alt="Carta de cumpleaños"
+                >
+
+
+                <button
+                    class="close-letter"
+                    id="closeLetter"
+                    type="button"
+                >
+                    ← volver al sobre
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PÁGINA DERECHA
+        ================================================== -->
+
+        <div class="page right">
+
+
+            <div class="decor one">
+                ★
+            </div>
+
+            <div class="decor two">
+                ♡
+            </div>
+
+
+
+            <!-- =============================================
+                 TORTA / IMAGEN 4
+            ============================================== -->
+
+            <div class="cake-container">
+
+                <img
+                    src="4.jpg"
+                    alt="Pastel de cumpleaños"
+                    class="cake-image"
+                >
+
+
+                <!-- LLAMAS -->
+
+                <div class="flame one"></div>
+
+                <div class="flame two"></div>
+
+                <div class="flame three"></div>
+
+
+                <!-- HUMO -->
+
+                <div class="smoke one"></div>
+
+                <div class="smoke two"></div>
+
+                <div class="smoke three"></div>
+
+            </div>
+
+
+
+            <!-- MENSAJE -->
+
+            <div class="final-message">
+                ✨ ¡FELIZ CUMPLE! ✨
+            </div>
+
+
+
+            <!-- BOTONES -->
+
+            <div class="candle-controls">
+
+                <button
+                    class="blow-button"
+                    id="blowButton"
+                    type="button"
+                >
+                    🌬️ soplar velas
+                </button>
+
+
+                <button
+                    class="relight-button"
+                    id="relightButton"
+                    type="button"
+                >
+                    🕯️ encender otra vez
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         CERRAR TARJETA
+    ====================================================== -->
+
+    <button
+        class="close-card"
+        id="closeCard"
+        type="button"
+    >
+        cerrar tarjeta ↩
+    </button>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const scene =
+    document.getElementById("scene");
+
+const closedCard =
+    document.getElementById("closedCard");
+
+const envelopeButton =
+    document.getElementById("envelopeButton");
+
+const leftPage =
+    document.getElementById("leftPage");
+
+const closeLetter =
+    document.getElementById("closeLetter");
+
+const closeCard =
+    document.getElementById("closeCard");
+
+const blowButton =
+    document.getElementById("blowButton");
+
+const relightButton =
+    document.getElementById("relightButton");
+
+
+/* =========================================================
+   ABRIR LA TARJETA
+
+   La portada gira como una hoja real.
+========================================================= */
+
+closedCard.addEventListener("click", function(){
+
+    scene.classList.add("open");
+
+});
+
+
+/* =========================================================
+   ABRIR LA CARTA
+
+   IMPORTANTE:
+   Se activa al presionar CUALQUIER PARTE de la imagen 2.
+========================================================= */
+
+envelopeButton.addEventListener("click", function(event){
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    leftPage.classList.add("letter-open");
+
+});
+
+
+/* =========================================================
+   TAMBIÉN PERMITIMOS CLICK DIRECTO EN EL CONTENEDOR
+========================================================= */
+
+document
+    .getElementById("envelopeContainer")
+    .addEventListener("click", function(){
+
+        if(
+            !leftPage.classList.contains("letter-open")
+        ){
+
+            leftPage.classList.add("letter-open");
+
+        }
+
+    });
+
+
+/* =========================================================
+   CERRAR CARTA Y VOLVER AL SOBRE
+========================================================= */
+
+closeLetter.addEventListener("click", function(event){
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    leftPage.classList.remove("letter-open");
+
+});
+
+
+/* =========================================================
+   CERRAR TODO
+========================================================= */
+
+closeCard.addEventListener("click", function(){
+
+    scene.classList.remove("open");
+
+    leftPage.classList.remove("letter-open");
+
+    scene.classList.remove("candles-off");
+
+});
+
+
+/* =========================================================
+   APAGAR LAS VELAS
+========================================================= */
+
+function apagarVelas(){
+
+    if(
+        scene.classList.contains("candles-off")
+    ){
+        return;
+    }
+
+    scene.classList.add("candles-off");
+
+    lanzarConfeti();
+
+}
+
+
+/* =========================================================
+   BOTÓN SOPLAR
+========================================================= */
+
+blowButton.addEventListener(
+    "click",
+    apagarVelas
+);
+
+
+/* =========================================================
+   CLIC DIRECTO SOBRE LAS LLAMAS
+========================================================= */
+
+document
+    .querySelectorAll(".flame")
+    .forEach(function(flame){
+
+        flame.addEventListener(
+            "click",
+            apagarVelas
+        );
+
+    });
+
+
+/* =========================================================
+   VOLVER A ENCENDER
+========================================================= */
+
+relightButton.addEventListener(
+    "click",
+    function(){
+
+        scene.classList.remove("candles-off");
+
+    }
+);
+
+
+/* =========================================================
+   CONFETI
+========================================================= */
+
+function lanzarConfeti(){
+
+    const cantidad = 45;
+
+    for(
+        let i = 0;
+        i < cantidad;
+        i++
+    ){
+
+        const pieza =
+            document.createElement("div");
+
+        pieza.className =
+            "confetti";
+
+        pieza.style.left =
+            Math.random() * 100 + "vw";
+
+        pieza.style.setProperty(
+            "--move",
+            (Math.random() * 300 - 150) + "px"
+        );
+
+        pieza.style.animationDelay =
+            (Math.random() * .7) + "s";
+
+        pieza.style.background =
+            [
+                "#a94444",
+                "#e7a95f",
+                "#f2d6a7",
+                "#fff1d6",
+                "#7c5555"
+            ][
+                Math.floor(
+                    Math.random() * 5
+                )
+            ];
+
+        pieza.style.transform =
+            "rotate(" +
+            Math.random() * 360 +
+            "deg)";
+
+        document.body.appendChild(pieza);
+
+
+        setTimeout(
+            function(){
+
+                pieza.remove();
+
+            },
+            3500
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   MICRÓFONO
+========================================================= */
+
+let audioContext = null;
+let analyser = null;
+let microphone = null;
+let microphoneStarted = false;
+
+
+/* =========================================================
+   INICIAR MICRÓFONO
+========================================================= */
+
+async function iniciarMicrofono(){
+
+    if(microphoneStarted){
+        return;
+    }
+
+    if(
+        !navigator.mediaDevices ||
+        !navigator.mediaDevices.getUserMedia
+    ){
+        return;
+    }
+
+    try{
+
+        const stream =
+            await navigator
+                .mediaDevices
+                .getUserMedia({
+                    audio:true
+                });
+
+
+        microphoneStarted = true;
+
+
+        audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
+
+
+        analyser =
+            audioContext.createAnalyser();
+
+
+        analyser.fftSize = 512;
+
+
+        microphone =
+            audioContext
+                .createMediaStreamSource(stream);
+
+
+        microphone.connect(analyser);
+
+
+        detectarSoplido();
+
+
+    }catch(error){
+
+        console.log(
+            "Micrófono no disponible."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DETECTAR SOPLIDO
+========================================================= */
+
+function detectarSoplido(){
+
+    if(!analyser){
+        return;
+    }
+
+
+    const datos =
+        new Uint8Array(
+            analyser.fftSize
+        );
+
+
+    analyser.getByteTimeDomainData(
+        datos
+    );
+
+
+    let suma = 0;
+
+
+    for(
+        let i = 0;
+        i < datos.length;
+        i++
+    ){
+
+        const valor =
+            (datos[i] - 128) / 128;
+
+        suma += valor * valor;
+
+    }
+
+
+    const volumen =
+        Math.sqrt(
+            suma / datos.length
+        );
+
+
+    if(
+        volumen > .18 &&
+        !scene.classList.contains(
+            "candles-off"
+        )
+    ){
+
+        apagarVelas();
+
+    }
+
+
+    requestAnimationFrame(
+        detectarSoplido
+    );
+
+}
+
+
+/* =========================================================
+   ACTIVAR MICRÓFONO AL ABRIR
+========================================================= */
+
+closedCard.addEventListener(
+    "click",
+    iniciarMicrofono
+);
+
+
+/* =========================================================
+   SOPLAR CON LA BARRA ESPACIADORA
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.code === "Space" &&
+            scene.classList.contains("open")
+        ){
+
+            event.preventDefault();
+
+            apagarVelas();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   EVITAR ARRASTRAR IMÁGENES
+========================================================= */
+
+document
+    .querySelectorAll("img")
+    .forEach(function(img){
+
+        img.addEventListener(
+            "dragstart",
+            function(event){
+
+                event.preventDefault();
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   EVITAR QUE UN CLICK EN LOS BOTONES
+   CIERRE O CAMBIE OTRA COSA
+========================================================= */
+
+document
+    .querySelectorAll("button")
+    .forEach(function(button){
+
+        button.addEventListener(
+            "click",
+            function(event){
+
+                event.stopPropagation();
+
+            }
+        );
+
+    });
+
+</script>
+
+</body>
+</html>
